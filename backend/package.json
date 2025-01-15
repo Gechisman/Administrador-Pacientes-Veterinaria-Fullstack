@@ -1,0 +1,26 @@
+{
+  "name": "apv-backend",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "Administrador de pacientes de veterinaria",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "keywords": [
+    "NodeJS",
+    "JS",
+    "MongoDB"
+  ],
+  "author": "Rodrigo Piñel",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.9.3",
+    "nodemon": "^3.1.9"
+  }
+}
