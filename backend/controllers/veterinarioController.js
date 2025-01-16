@@ -2,10 +2,11 @@ import e from 'express';
 import Veterinario from '../models/Veterinario.js';
 import generarJWT from '../helpers/generarJWT.js';
 import generarId from '../helpers/generarId.js';
+import emailRegistro from '../helpers/emailRegistro.js';
 
 //POST
 const registrar = async (req, res) => {
-    const {email, password, nombre} = req.body;
+    const {email, nombre} = req.body;
 
     //Validar que no exista un usuario con el mismo email
     //findOne busca un usuario con el email que se le pasa
@@ -22,6 +23,14 @@ const registrar = async (req, res) => {
         //Guardar usuario
         const veterinario = new Veterinario(req.body);
         const veterinarioGuardado = await veterinario.save();
+
+        //Enviar el email después de guardarlo en la bbdd
+        emailRegistro({
+            email, 
+            nombre,
+            token: veterinarioGuardado.token
+        });
+
         res.json(veterinarioGuardado);
     } catch (error) {
         console.log(error);
@@ -41,13 +50,12 @@ const confirmar = async (req, res) => {
     const {token} = req.params;
     console.log(token);
 
-    const usuarioConfirmar = await Veterinario.findOne
-    ({
+    const usuarioConfirmar = await Veterinario.findOne({
         token
     });
 
     if(!usuarioConfirmar){
-        const error = new Error('El usuario no existe');
+        const error = new Error('Token no válido');
         return res.status(400).json({msg: error.message});
     }
 

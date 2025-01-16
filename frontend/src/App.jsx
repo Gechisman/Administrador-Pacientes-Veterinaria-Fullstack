@@ -9,7 +9,8 @@ import ConfirmarCuenta from './paginas/ConfirmarCuenta'
 import OlvidePassword from './paginas/OlvidePassword'
 
 function App() {
-
+console.log(import.meta.env.VITE_BACKEND_URL);
+console.log(import.meta.env.VITE_IMAGENES_URL);
   return (
     <BrowserRouter>
       <Routes>
